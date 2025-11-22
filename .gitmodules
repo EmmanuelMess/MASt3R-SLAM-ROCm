@@ -7,6 +7,6 @@
 [submodule "thirdparty/lietorch"]
 	path = thirdparty/lietorch
 	url = https://github.com/EmmanuelMess/lietorch-ROCm.git
-[submodule "croco"]
-	path = thirdparty/mast3r/dust3r/croco-rocm
+[submodule "thirdparty/mast3r/dust3r/croco"]
+	path = thirdparty/mast3r/dust3r/croco
 	url = https://github.com/EmmanuelMess/croco-rocm.git

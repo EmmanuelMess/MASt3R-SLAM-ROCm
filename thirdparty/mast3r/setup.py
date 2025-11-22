@@ -6,6 +6,8 @@ curope = Path(__file__).parent / "dust3r" / "croco" / "models" / "curope"
 asmk = Path(__file__).parent / "asmk"
 setup(
     install_requires=[
+        "torch",
+        "torchvision",
         "scikit-learn",
         "roma",
         "gradio",

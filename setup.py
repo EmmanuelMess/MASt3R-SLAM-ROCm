@@ -2,11 +2,13 @@ from pathlib import Path
 from setuptools import setup
 
 import torch
-from torch.utils.cpp_extension import BuildExtension, CppExtension
+from torch.utils.cpp_extension import BuildExtension, CUDAExtension
 import os
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
-has_cuda = torch.cuda.is_available()
+mast3r = Path(__file__).parent / "thirdparty" / "mast3r"
+in3d = Path(__file__).parent / "thirdparty" / "in3d"
+lietorch = Path(__file__).parent / "thirdparty" / "lietorch"
 
 include_dirs = [
     os.path.join(ROOT, "mast3r_slam/backend/include"),
@@ -15,17 +17,15 @@ include_dirs = [
 
 sources = [
     "mast3r_slam/backend/src/gn.cpp",
+    "mast3r_slam/backend/src/gn_kernels.cu",
+    "mast3r_slam/backend/src/matching_kernels.cu"
 ]
 extra_compile_args = {
     "cores": ["j8"],
     "cxx": ["-O3"],
 }
 
-if has_cuda:
-    from torch.utils.cpp_extension import CUDAExtension
-
-    sources.append("mast3r_slam/backend/src/gn_kernels.cu")
-    sources.append("mast3r_slam/backend/src/matching_kernels.cu")
+if torch.cuda.is_available() and torch.version.cuda:
     extra_compile_args["nvcc"] = [
         "-O3",
         "-gencode=arch=compute_60,code=sm_60",
@@ -43,10 +43,31 @@ if has_cuda:
             extra_compile_args=extra_compile_args,
         )
     ]
+elif torch.cuda.is_available() and torch.version.hip:
+    ext_modules = [CUDAExtension(
+        name='mast3r_slam_backends',
+        sources=sources,
+        extra_compile_args={
+            "hipcc": ['-O3'],
+            "cxx": ['-O3'],
+        },
+    )]
 else:
-    print("CUDA not found, cannot compile backend!")
+    ext_modules = []
 
 setup(
+    install_requires=[
+        "numpy",
+        "einops",
+        "pyrealsense2",
+        "evo",
+        "natsort",
+        # "torchcodec==0.1",
+        "plyfile",
+        f"mast3r @ {mast3r.as_uri()}",
+        f"in3d @ {in3d.as_uri()}",
+        f"lietorch @ {lietorch.as_uri()}"
+    ],
     ext_modules=ext_modules,
     cmdclass={"build_ext": BuildExtension},
 )

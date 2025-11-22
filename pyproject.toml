@@ -1,20 +1,16 @@
 [build-system]
-requires = ["setuptools==70.0.0", "torch"]
+requires = [
+    "wheel",
+    "setuptools==80.9.0",
+    "numpy", 
+    "torch"
+]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "MAST3R-SLAM"
 version = "0.0.1"
-dependencies = [
-    "numpy==1.26.4",
-    "einops",
-    "pyrealsense2",
-    "evo",
-    "natsort",
-    # "torchcodec==0.1",
-    "lietorch @ git+https://github.com/princeton-vl/lietorch.git",
-    "plyfile",
-]
+dynamic = ["dependencies"]
 
 [tool.setuptools.packages.find]
 where = ["."]
