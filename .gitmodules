@@ -4,3 +4,9 @@
 [submodule "thirdparty/in3d/thirdparty/pyimgui"]
 	path = thirdparty/in3d/thirdparty/pyimgui
 	url = https://github.com/pyimgui/pyimgui.git
+[submodule "thirdparty/lietorch"]
+	path = thirdparty/lietorch
+	url = https://github.com/EmmanuelMess/lietorch-ROCm.git
+[submodule "croco"]
+	path = thirdparty/mast3r/dust3r/croco-rocm
+	url = https://github.com/EmmanuelMess/croco-rocm.git
