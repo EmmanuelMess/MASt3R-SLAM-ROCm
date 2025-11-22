@@ -22,38 +22,58 @@
 
 # Getting Started
 ## Installation
+
 ```
-conda create -n mast3r-slam python=3.11
-conda activate mast3r-slam
-```
-Check the system's CUDA version with nvcc
-```
-nvcc --version
-```
-Install pytorch with **matching** CUDA version following:
-```
-# CUDA 11.8
-conda install pytorch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1  pytorch-cuda=11.8 -c pytorch -c nvidia
-# CUDA 12.1
-conda install pytorch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1 pytorch-cuda=12.1 -c pytorch -c nvidia
-# CUDA 12.4
-conda install pytorch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1 pytorch-cuda=12.4 -c pytorch -c nvidia
+python3 -m venv .venv
+source .venv/bin/activate
 ```
 
-Clone the repo and install the dependencies.
+### Pytorch (see https://pytorch.org/)
+#### CPU
+
 ```
-git clone https://github.com/rmurai0610/MASt3R-SLAM.git --recursive
-cd MASt3R-SLAM/
+export TORCH_INDEX=https://download.pytorch.org/whl/cpu
+```
 
-# if you've clone the repo without --recursive run
-# git submodule update --init --recursive
+#### ROCm (See https://pytorch.org/get-started/previous-versions/)
 
-pip install -e thirdparty/mast3r
-pip install -e thirdparty/in3d
-pip install --no-build-isolation -e .
- 
+```
+export TORCH_INDEX=https://download.pytorch.org/whl/rocm6.2
+```
 
-# Optionally install torchcodec for faster mp4 loading
+#### CUDA 11.8
+
+```
+export TORCH_INDEX=https://download.pytorch.org/whl/cu118
+```
+
+#### CUDA 12.1
+
+```
+export TORCH_INDEX=https://download.pytorch.org/whl/cu121
+```
+
+#### CUDA 12.4
+
+```
+export TORCH_INDEX=https://download.pytorch.org/whl/cu124
+```
+
+### Install pytorch
+
+```
+python3 -m pip install torch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1 --index-url ${TORCH_INDEX}
+```
+
+### Install the package
+```
+python3 -m pip install --upgrade pip
+
+python3 -m pip install --editable . --index-url ${TORCH_INDEX} --index-url https://pypi.python.org/simple
+```
+
+```
+Optionally install torchcodec for faster mp4 loading
 pip install torchcodec==0.1
 ```
 
