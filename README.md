@@ -28,48 +28,29 @@ python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-### Pytorch (see https://pytorch.org/)
-#### CPU
-
 ```
+# Pytorch (see https://pytorch.org/)
+# CPU
 export TORCH_INDEX=https://download.pytorch.org/whl/cpu
-```
 
-#### ROCm (See https://pytorch.org/get-started/previous-versions/)
+# ROCm
+export TORCH_INDEX=https://download.pytorch.org/whl/rocm6.3
 
-```
-export TORCH_INDEX=https://download.pytorch.org/whl/rocm6.2
-```
-
-#### CUDA 11.8
-
-```
+# CUDA 11.8
 export TORCH_INDEX=https://download.pytorch.org/whl/cu118
-```
+# CUDA 12.1
+export TORCH_INDEX=https://download.pytorch.org/whl/cu126
+# CUDA 12.4
+export TORCH_INDEX=https://download.pytorch.org/whl/cu128
 
-#### CUDA 12.1
-
-```
-export TORCH_INDEX=https://download.pytorch.org/whl/cu121
-```
-
-#### CUDA 12.4
-
-```
-export TORCH_INDEX=https://download.pytorch.org/whl/cu124
-```
-
-### Install pytorch
-
-```
-python3 -m pip install torch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1 --index-url ${TORCH_INDEX}
+python3 -m pip install torch torchvision torchaudio --index-url ${TORCH_INDEX}
 ```
 
 ### Install the package
 ```
 python3 -m pip install --upgrade pip
 
-python3 -m pip install --editable . --index-url ${TORCH_INDEX} --index-url https://pypi.python.org/simple
+python3 -m pip install .  --extra-index-url ${TORCH_INDEX}
 ```
 
 ```
