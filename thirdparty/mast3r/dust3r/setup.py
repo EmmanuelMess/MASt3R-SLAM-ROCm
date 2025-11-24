@@ -1,12 +1,13 @@
 from pathlib import Path
 from setuptools import setup
 
-dust3r = Path(__file__).parent / "dust3r"
+croco = Path(__file__).parent / "croco"
 
 setup(
     install_requires=[
         "torch",
         "torchvision",
+        "scikit-learn",
         "roma",
         "gradio",
         "matplotlib",
@@ -18,6 +19,6 @@ setup(
         "tensorboard",
         "pyglet",
         "huggingface-hub[torch]>=0.22",
-        f"dust3r @ {dust3r.as_uri()}"
+        f"croco @ {croco.as_uri()}",
     ],
 )

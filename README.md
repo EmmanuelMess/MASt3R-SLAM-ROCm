@@ -78,6 +78,15 @@ This disables multiprocessing which causes an issue with shared memory as discus
 bash ./scripts/download_tum.sh
 python main.py --dataset datasets/tum/rgbd_dataset_freiburg1_room/ --config config/calib.yaml
 ```
+
+If you get an error regarding `torch.AcceleratorError: HIP error: invalid device function` use:
+
+```bash
+export HSA_OVERRIDE_GFX_VERSION=10.3.0
+export HSA_ENABLE_IPC_MODE_LEGACY=0
+```
+
+
 ## Live Demo
 Connect a realsense camera to the PC and run
 ```

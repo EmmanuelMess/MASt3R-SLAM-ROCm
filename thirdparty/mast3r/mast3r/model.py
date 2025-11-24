@@ -10,7 +10,6 @@ import os
 
 from mast3r.catmlp_dpt_head import mast3r_head_factory
 
-import mast3r.utils.path_to_dust3r  # noqa
 from dust3r.model import AsymmetricCroCo3DStereo  # noqa
 from dust3r.utils.misc import transpose_to_landscape  # noqa
 
@@ -20,8 +19,8 @@ inf = float('inf')
 
 def load_model(model_path, device, verbose=True):
     if verbose:
-        print('... loading model from', model_path)
-    ckpt = torch.load(model_path, map_location='cpu')
+        print('... loading model from', model_path) 
+    ckpt = torch.load(model_path, map_location='cpu', weights_only=False) # TODO weights_only=False can result in arbitrary code execution
     args = ckpt['args'].model.replace("ManyAR_PatchEmbed", "PatchEmbedDust3R")
     if 'landscape_only' not in args:
         args = args[:-1] + ', landscape_only=False)'

@@ -13,7 +13,6 @@ from typing import List
 import torch
 import torch.nn as nn
 from dust3r.heads.postprocess import postprocess
-import dust3r.utils.path_to_croco  # noqa: F401
 from models.dpt_block import DPTOutputAdapter  # noqa
 
 

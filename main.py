@@ -183,7 +183,13 @@ if __name__ == "__main__":
             intrinsics["calibration"],
         )
 
-    keyframes = SharedKeyframes(manager, h, w)
+    gpu_memory = torch.cuda.get_device_properties(0).total_memory / (1024**3)
+    if gpu_memory < 20:
+        print(f"Warning: low GPU memory {gpu_memory}G")
+        keyframes = SharedKeyframes(manager, h, w, 64)
+    else:
+        keyframes = SharedKeyframes(manager, h, w)
+        
     states = SharedStates(manager, h, w)
 
     if not args.no_viz:

@@ -3,11 +3,11 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "MAST3R"
+name = "dust3r"
 version = "0.0.1"
 dynamic = ["dependencies"]
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["mast3r*"]
+include = ["dust3r*"]
 namespaces = false

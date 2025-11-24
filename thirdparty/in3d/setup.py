@@ -5,6 +5,8 @@ thirdparty_path = Path(__file__).parent / "thirdparty"
 pyimgui_path = (thirdparty_path / "pyimgui").as_uri()
 
 setup(
+    package_data={'in3d': ['resources/**/*']},
+    include_package_data=True,
     install_requires=[
         f"imgui @ {pyimgui_path}",
         "moderngl==5.12.0",

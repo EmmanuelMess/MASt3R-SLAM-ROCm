@@ -6,7 +6,6 @@
 # in particular ManyAR_PatchEmbed that Handle images with non-square aspect ratio
 # --------------------------------------------------------
 import torch
-import dust3r.utils.path_to_croco  # noqa: F401
 from models.blocks import PatchEmbed  # noqa
 
 
