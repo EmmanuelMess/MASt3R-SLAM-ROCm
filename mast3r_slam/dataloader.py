@@ -274,6 +274,20 @@ class RGBFiles(MonocularDataset):
         self.timestamps = np.arange(0, len(self.rgb_files)).astype(self.dtype) / 30.0
 
 
+class RosarioDataset(MonocularDataset):
+    def __init__(self, dataset_path):
+        super().__init__()
+        self.dataset_path = pathlib.Path(dataset_path)
+        rgb_list = self.dataset_path / "rgb.txt"
+        tstamp_rgb = np.loadtxt(rgb_list, delimiter=" ", dtype=np.unicode_, skiprows=0)
+        self.rgb_files = [self.dataset_path / f for f in tstamp_rgb[:, 1]]
+        self.timestamps = tstamp_rgb[:, 0]
+        calib = np.array(
+                [639.4389530931496, 642.8149248600909, 647.3012090184004, 347.7423419141235, 0.05112465195903441, -0.08817933012895941, -0.0011842812428454741, -0.00040533553962803756]
+            )
+        H, W = 720, 1280
+        self.camera_intrinsics = Intrinsics.from_calib(self.img_size, W, H, calib)
+
 class Intrinsics:
     def __init__(self, img_size, W, H, K_orig, K, distortion, mapx, mapy):
         self.img_size = img_size
@@ -327,6 +341,8 @@ def load_dataset(dataset_path):
         return ETH3DDataset(dataset_path)
     if "7-scenes" in split_dataset_type:
         return SevenScenesDataset(dataset_path)
+    if "rosario" in split_dataset_type:
+        return RosarioDataset(dataset_path)
     if "realsense" in split_dataset_type:
         return RealsenseDataset()
     if "webcam" in split_dataset_type:
