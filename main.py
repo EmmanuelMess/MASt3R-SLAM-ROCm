@@ -156,6 +156,7 @@ if __name__ == "__main__":
     parser.add_argument("--save-as", default="default")
     parser.add_argument("--no-viz", action="store_true")
     parser.add_argument("--calib", default="")
+    parser.add_argument("--kf-buffer", default=512, type=int)
 
     args = parser.parse_args()
 
@@ -186,9 +187,8 @@ if __name__ == "__main__":
     gpu_memory = torch.cuda.get_device_properties(0).total_memory / (1024**3)
     if gpu_memory < 20:
         print(f"Warning: low GPU memory {gpu_memory}G")
-        keyframes = SharedKeyframes(manager, h, w, 64)
-    else:
-        keyframes = SharedKeyframes(manager, h, w)
+       
+    keyframes = SharedKeyframes(manager, h, w, args.kf_buffer)
         
     states = SharedStates(manager, h, w)
 
