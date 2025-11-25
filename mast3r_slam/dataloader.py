@@ -283,7 +283,7 @@ class RosarioDataset(MonocularDataset):
         self.rgb_files = [self.dataset_path / f for f in tstamp_rgb[:, 1]]
         self.timestamps = tstamp_rgb[:, 0]
         calib = np.array(
-                [639.4389530931496, 642.8149248600909, 647.3012090184004, 347.7423419141235, 0.05112465195903441, -0.08817933012895941, -0.0011842812428454741, -0.00040533553962803756]
+                [890.4202450761666, 895.5269973888081, 633.5761943138773, 375.39479166983205, 0.05112465195903441, -0.08817933012895941, -0.0011842812428454741, -0.00040533553962803756]
             )
         H, W = 720, 1280
         self.camera_intrinsics = Intrinsics.from_calib(self.img_size, W, H, calib)
